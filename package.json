@@ -1,0 +1,36 @@
+{
+  "name": "quiz",
+  "version": "1.0.0",
+  "description": "quiz app",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open --hot",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HeibaiL/Quiz.git"
+  },
+  "author": "Vladyslav Dubyna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HeibaiL/Quiz/issues"
+  },
+  "homepage": "https://github.com/HeibaiL/Quiz",
+  "dependencies": {
+    "mongoose": "^5.8.11",
+    "nodemon": "^2.0.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "babel-loader": "^8.0.6",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.10"
+  }
+}
