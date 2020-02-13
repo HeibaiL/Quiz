@@ -10,6 +10,6 @@ export const App = () => (
     <Header />
     <QuizList />
     <QuizTest />
-    <Footer />
+    {/* <Footer /> */}
   </div>
 );
