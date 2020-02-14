@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { quizes } from "../quizes";
-import { Quiz } from "./Quiz";
+import Quiz from "./Quiz";
 
 export const QuizTest = () => {
   const [quizNum, useQuizNum] = useState(1);
@@ -11,13 +11,13 @@ export const QuizTest = () => {
         return <Quiz quiz={quiz} key={quiz.id} />;
       }
     });
-  };
-  //Max quizNum = quiz numbers
-  if(quizNum>quizes.length){
-      useQuizNum(1)
-  }else if(quizNum<1){
-    useQuizNum(quizes.length)
-  };
+  }
+  //Max and min quizNum = quiz numbers
+  if (quizNum > quizes.length) {
+    useQuizNum(1);
+  } else if (quizNum < 1) {
+    useQuizNum(quizes.length);
+  }
 
   return (
     <div className="quizTest">
