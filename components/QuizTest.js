@@ -1,35 +1,45 @@
 import React, { useState, useEffect } from "react";
-import { quizes } from "../quizes";
 import Quiz from "./Quiz";
 
-export const QuizTest = () => {
-  const [quizNum, useQuizNum] = useState(1);
+export const QuizTest = props => {
+  const [questionNum, useQuestionNum] = useState(1);
+  const {
+    quiz,
+    quiz: { data, title }
+  } = props;
+
+  //Start with 1st question when quiz changed
+  useEffect(() => useQuestionNum(1), [quiz]);
 
   function showQuiz(num) {
-    return quizes.map((quiz, index) => {
+    return data.map((quiz, index) => {
       if (index === num - 1) {
-        return <Quiz quiz={quiz} key={quiz.id} />;
+        return <Quiz quiz={quiz} key={index} />;
       }
     });
   }
-  //Max and min quizNum = quiz numbers
-  if (quizNum > quizes.length) {
-    useQuizNum(1);
-  } else if (quizNum < 1) {
-    useQuizNum(quizes.length);
+
+  // Max and min quizNum = quiz numbers
+  if (data) {
+    if (questionNum > data.length) {
+      useQuestionNum(1);
+    } else if (questionNum < 1) {
+      useQuestionNum(data.length);
+    }
   }
 
   return (
     <div className="quizTest">
+      <h1 style={{ color: "white" }}>{title}</h1>
       <i
         className="fas fa-chevron-left previous"
-        onClick={() => useQuizNum(quizNum - 1)}
+        onClick={() => useQuestionNum(questionNum - 1)}
       ></i>
       <i
         className="fas fa-chevron-right next"
-        onClick={() => useQuizNum(quizNum + 1)}
+        onClick={() => useQuestionNum(questionNum + 1)}
       ></i>
-      {showQuiz(quizNum)}
+      {data ? showQuiz(questionNum) : null}
     </div>
   );
 };

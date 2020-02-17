@@ -1,20 +1,12 @@
 import React from "react";
 
-export const QuizList = () => {
+export const QuizList = (props) => {
+    let id = 0;
   return <div className="quizList">
       <ul className="list">
-          <li>
-             <p>Survey1</p>
-          </li>
-          <li>
-              Survey2
-          </li>
-          <li>
-              Survey3
-          </li>
-          <li>
-              Survey4
-          </li>
+            {props.quizes.map(quiz=>(
+                <li key = {quiz.id} onClick = {()=>props.chooseQuiz(quiz.title)}>{quiz.title}</li>
+            ))}
       </ul>
   </div>;
 };
