@@ -12,6 +12,9 @@ export const Header = () => {
         </span>
         <ul>
           <li>
+            <a href="#">View</a>
+          </li>
+          <li>
             <a href="#">Define survey</a>
           </li>
           <li>
