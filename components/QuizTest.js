@@ -14,7 +14,7 @@ export const QuizTest = props => {
   function showQuiz(num) {
     return data.map((quiz, index) => {
       if (index === num - 1) {
-        return <Quiz quiz={quiz} key={index} />;
+        return <Quiz quiz={quiz} title={title} key={index} />;
       }
     });
   }
@@ -30,7 +30,6 @@ export const QuizTest = props => {
 
   return (
     <div className="quizTest">
-      <h1 style={{ color: "white" }}>{title}</h1>
       <i
         className="fas fa-chevron-left previous"
         onClick={() => useQuestionNum(questionNum - 1)}
