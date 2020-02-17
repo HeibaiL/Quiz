@@ -1,31 +1,26 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { saveAnswer } from "../store/actions";
-
-const mapStateToProps = state => ({
-  ...state
-});
-const mapDispatchToProps = {
-  saveAnswer
-};
 
 function Quiz(props) {
   const {
     quiz,
     quiz: { answers },
+    title,
     saveAnswer
   } = props;
   const [stateAnswer, useAnswer] = useState("");
+  const dispatch = useDispatch();
+  const {appAnswers} = useSelector(state => ({ ...state }));
   const chosenStyle = { background: "#343240" };
 
   let id = 0;
-  function getAnswer(answer) {
-    useAnswer(answer);
-    const fullAnswer = { question: quiz.question, answer };
-    saveAnswer(fullAnswer);
-  }
+  function getAnswer(answer) {}
   return (
     <div className="quiz">
+      <h1 style={{ color: "white" }} className="quiz-title">
+        {title}
+      </h1>
       <h1>{quiz.question}</h1>
       <ul className="answers">
         {answers.map((answer, index) => (
@@ -35,4 +30,4 @@ function Quiz(props) {
     </div>
   );
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Quiz);
+export default Quiz;
