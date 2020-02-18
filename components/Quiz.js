@@ -14,8 +14,6 @@ function Quiz(props) {
   const {appAnswers} = useSelector(state => ({ ...state }));
   const chosenStyle = { background: "#343240" };
 
-  let id = 0;
-  function getAnswer(answer) {}
   return (
     <div className="quiz">
       <h1 style={{ color: "white" }} className="quiz-title">
