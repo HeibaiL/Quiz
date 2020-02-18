@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { gotQuizes } from "./quizes";
 import { setQuiz } from "./store/actions";
@@ -16,6 +17,7 @@ export const App = props => {
   const dispatch = useDispatch();
 
   const [chosenQuiz, useChosenQuiz] = useState("");
+  const [activePage, useActivePage] = useState("");
 
   useEffect(() => {
     dispatch(setQuiz(gotQuizes));
@@ -27,10 +29,19 @@ export const App = props => {
   }
 
   return (
-    <div className="app">
-      <Header />
-      <QuizList chooseQuiz={chooseQuiz} quizes={quizes} />
-      <QuizTest quiz={chosenQuiz} />
-    </div>
+    <Router>
+      <div className="app">
+        <Header />
+        <QuizList chooseQuiz={chooseQuiz} quizes={quizes} />
+        <Switch>
+          <Route
+            path="/"
+            exact
+            component={() => <QuizTest quiz={chosenQuiz} />}
+          />
+          <Route path="/definesurvey" component={() => <Footer />} />
+        </Switch>
+      </div>
+    </Router>
   );
 };

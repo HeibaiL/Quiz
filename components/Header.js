@@ -1,12 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-export const Header = () => {
+export const Header = props => {
   return (
     <div className="header">
       <nav>
         <span className="logo">
           <i className="fas fa-ice-cream logo-icon"></i>
-          <a href="#" className="logo-text">
+          <a href="/" className="logo-text">
             Quizzeee
           </a>
         </span>
@@ -15,7 +16,7 @@ export const Header = () => {
             <a href="#">View</a>
           </li>
           <li>
-            <a href="#">Define survey</a>
+            <Link to="/definesurvey">Define survey</Link>
           </li>
           <li>
             <a href="#">Log in</a>

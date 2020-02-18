@@ -30,15 +30,19 @@ export const QuizTest = props => {
 
   return (
     <div className="quizTest">
-      <i
-        className="fas fa-chevron-left previous"
-        onClick={() => useQuestionNum(questionNum - 1)}
-      ></i>
-      <i
-        className="fas fa-chevron-right next"
-        onClick={() => useQuestionNum(questionNum + 1)}
-      ></i>
-      {data ? showQuiz(questionNum) : null}
+      {data ? (
+        <div style={{height:"90%"}}>
+          <i
+            className="fas fa-chevron-left previous"
+            onClick={() => useQuestionNum(questionNum - 1)}
+          ></i>
+          <i
+            className="fas fa-chevron-right next"
+            onClick={() => useQuestionNum(questionNum + 1)}
+          ></i>
+          {showQuiz(questionNum)}
+        </div>
+      ) : null}
     </div>
   );
 };
