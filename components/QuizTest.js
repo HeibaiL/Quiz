@@ -29,7 +29,7 @@ export const QuizTest = props => {
   }
 
   return (
-    <div className="quizTest">
+    <div className="quizTest main">
       {data ? (
         <div style={{height:"90%"}}>
           <i
