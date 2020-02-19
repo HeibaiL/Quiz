@@ -11,7 +11,7 @@ function Quiz(props) {
   } = props;
   const [stateAnswer, useAnswer] = useState("");
   const dispatch = useDispatch();
-  const {appAnswers} = useSelector(state => ({ ...state }));
+  const { appAnswers } = useSelector(state => ({ ...state }));
   const chosenStyle = { background: "#343240" };
 
   return (

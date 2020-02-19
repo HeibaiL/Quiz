@@ -7,16 +7,16 @@ export const Header = props => {
       <nav>
         <span className="logo">
           <i className="fas fa-ice-cream logo-icon"></i>
-          <a href="/" className="logo-text">
+          <Link to="/" className="logo-text">
             Quizzeee
-          </a>
+          </Link>
         </span>
         <ul>
           <li>
             <a href="#">View</a>
           </li>
           <li>
-            <Link to="/definesurvey">Define survey</Link>
+            <Link to="/definesurvey">Define quiz</Link>
           </li>
           <li>
             <a href="#">Log in</a>
