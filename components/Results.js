@@ -11,7 +11,6 @@ export const Results = props => {
   } = props;
   const [editing, useEditing] = useState(false);
 
-
   function showResult() {
     return (
       <div className="showResult">
@@ -27,7 +26,7 @@ export const Results = props => {
           className="fas fa-times define-cancel"
         ></i>
         {answers.map(({ text, id }) => {
-          return <li key={id} >{text}</li>;
+          return <li key={id}>{text}</li>;
         })}
       </div>
     );
@@ -38,7 +37,12 @@ export const Results = props => {
       <div className="showResult">
         <h2>
           {index + 1}.{" "}
-          <input id={questionAnswer.id} value={question} onChange={e=>handleQuestionEdit(e)} className="question-edit" />
+          <input
+            id={questionAnswer.id}
+            value={question}
+            onChange={e => handleQuestionEdit(e)}
+            className="question-edit"
+          />
         </h2>
         <i
           className="fas fa-check define-correct"
@@ -52,8 +56,8 @@ export const Results = props => {
           return (
             <li key={id}>
               <input
-              value={text}
-                onChange={e => handleAnswerEdit(e,questionAnswer.id)}
+                value={text}
+                onChange={e => handleAnswerEdit(e, questionAnswer.id)}
                 id={id}
               />
             </li>
@@ -62,9 +66,5 @@ export const Results = props => {
       </div>
     );
   }
-  return (
-    <div className="result">
-      {editing ? showEditing() : showResult()}
-    </div>
-  );
+  return <div className="result">{editing ? showEditing() : showResult()}</div>;
 };
