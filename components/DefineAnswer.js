@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-export function DefineAnswer({ handleInput, answer }) {
+export function DefineAnswer({ handleAnswerInput, answer: { id } }) {
   return (
     <div className="define-answers">
       <input
-        id={answer.id}
+        id={id}
         name="question"
-        onChange={e => handleInput(e)}
+        onChange={e => handleAnswerInput(e)}
       ></input>
       Define answer
     </div>
