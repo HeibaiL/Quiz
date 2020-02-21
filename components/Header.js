@@ -16,7 +16,7 @@ export const Header = props => {
             <a href="#">View</a>
           </li>
           <li>
-            <Link to="/definesurvey"> Define quiz</Link>
+            <Link to="/definequiz"> Define quiz</Link>
           </li>
           <li>
             <a href="#">Log in</a>

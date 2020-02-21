@@ -66,5 +66,9 @@ export const Results = props => {
       </div>
     );
   }
-  return <div className="result">{editing ? showEditing() : showResult()}</div>;
+  return <div className="result">
+  
+
+    {editing ? showEditing() : showResult()}
+    </div>;
 };

@@ -39,7 +39,7 @@ export const App = props => {
             exact
             component={() => <QuizTest quiz={chosenQuiz} />}
           />
-          <Route path="/definesurvey" component={() => <DefineQuiz />} />
+          <Route path="/definequiz" component={() => <DefineQuiz />} />
         </Switch>
       </div>
     </Router>
