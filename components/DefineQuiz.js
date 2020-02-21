@@ -4,17 +4,33 @@ import uuid from "react-uuid";
 import { DefineAnswer } from "./DefineAnswer";
 import { Results } from "./Results";
 import { CreatingQuiz } from "./CreatingQuiz";
+import { json } from "body-parser";
 
 export const DefineQuiz = () => {
+  const [title, useTitle] = useState("");
+  const [quiz, useQuiz] = useState([]);
   const [creatingQuiz, useCreatingQuiz] = useState(false);
   const [questionInput, useQuestion] = useState("");
   const [allAnswers, setAllAnswers] = useState([]);
   const [questionAnswers, useQuestionAnswers] = useState([]);
 
   useEffect(() => {
-    loadAnswers();
+    loadTwoAnswers();
   }, []);
 
+  function endCreatingQuiz() {
+    fetch("http://localhost:4000/definequiz", {
+      headers: { "content-type": "application/json" },
+      method: "POST",
+      body: JSON.stringify({ title, data: [...questionAnswers] })
+    })
+      .then(res => res.json())
+      .then(data => console.log(data));
+  }
+  function handleTitleInput(e) {
+    const { value } = e.target;
+    useTitle(value);
+  }
   function handleQuestion(e) {
     const { value } = e.target;
     useQuestion(value);
@@ -47,7 +63,7 @@ export const DefineQuiz = () => {
     useCreatingQuiz(true);
   }
   //start with 2 answers
-  function loadAnswers() {
+  function loadTwoAnswers() {
     setAllAnswers(
       [].concat({ id: uuid(), text: "" }, { id: uuid(), text: "" })
     );
@@ -62,7 +78,7 @@ export const DefineQuiz = () => {
       })
     );
     useQuestion("");
-    loadAnswers();
+    loadTwoAnswers();
   }
 
   function deleteQuestion(id) {
@@ -74,6 +90,7 @@ export const DefineQuiz = () => {
     });
     useQuestionAnswers(updatedArr);
   }
+
   function addAnswer() {
     setAllAnswers(allAnswers.concat({ id: uuid(), text: "" }));
   }
@@ -115,6 +132,18 @@ export const DefineQuiz = () => {
         />
       ) : (
         <div className="render-results">
+          <input
+            className="define-title"
+            placeholder="Enter quiz title"
+            onChange={e => handleTitleInput(e)}
+            value={title}
+          />
+          <div
+            className="end-creating define-button "
+            onClick={() => endCreatingQuiz()}
+          >
+            <i className="far fa-dot-circle"></i> End Creating Quiz
+          </div>
           {questionAnswers.map((questionAnswer, index) => {
             return (
               <Results

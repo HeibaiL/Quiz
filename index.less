@@ -214,7 +214,23 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    .end-creating {
+      display: flex;
+      bottom: 20%;
+      background-color: rgb(94, 100, 122);
+      i {
+        font-size: 26px;
+      }
+    }
+    .define-title {
+      font-size: 24px;
+      margin-bottom: 3vh;
+    }
 
+    input {
+      border-radius: 15px;
+      padding: 5px;
+    }
     h2 {
       margin: 10px 0;
       max-width: 80%;
@@ -223,12 +239,8 @@
       position: relative;
       margin: 20px;
       width: 50%;
-      input{
-        border-radius:15px;
-        padding:5px;
-      }
       .question-edit {
-        font-size:24px;
+        font-size: 24px;
       }
       .showResult {
         width: 100%;
@@ -239,8 +251,8 @@
 
         li {
           margin: 10px 0;
-          input{
-            font-size:18px;
+          input {
+            font-size: 18px;
           }
         }
       }
@@ -284,7 +296,6 @@
   .create-quiz {
     bottom: 20%;
     font-size: 22px;
-    background-color: rgb(94, 100, 122);
   }
   .answers {
     width: 40%;
