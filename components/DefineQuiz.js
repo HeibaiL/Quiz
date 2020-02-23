@@ -7,8 +7,8 @@ import { CreatingQuiz } from "./CreatingQuiz";
 import { json } from "body-parser";
 
 export const DefineQuiz = () => {
+  const [emptyFieldErr, useEmptyFieldErr] = useState("");
   const [title, useTitle] = useState("");
-  const [quiz, useQuiz] = useState([]);
   const [creatingQuiz, useCreatingQuiz] = useState(false);
   const [questionInput, useQuestion] = useState("");
   const [allAnswers, setAllAnswers] = useState([]);
@@ -17,7 +17,11 @@ export const DefineQuiz = () => {
   useEffect(() => {
     loadTwoAnswers();
   }, []);
-
+  function showEmptyFieldError(error) {
+    useEmptyFieldErr(error);
+    setTimeout(() => useEmptyFieldErr(""), 3000);
+  };
+  
   function endCreatingQuiz() {
     fetch("http://localhost:4000/definequiz", {
       headers: { "content-type": "application/json" },
@@ -59,7 +63,9 @@ export const DefineQuiz = () => {
   }
 
   function createQuiz() {
-    createQuestionAnswer();
+    const error = createQuestionAnswer();
+    if (error) return showEmptyFieldError(error.message);
+
     useCreatingQuiz(true);
   }
   //start with 2 answers
@@ -70,6 +76,17 @@ export const DefineQuiz = () => {
   }
 
   function createQuestionAnswer() {
+    try {
+      if (!questionInput.trim())
+        throw new Error("Question input field is empty");
+      for (let answer of allAnswers) {
+        if (!answer.text) throw new Error("Answers fields are empty");
+      }
+    } catch (error) {
+      showEmptyFieldError(error.message);
+      return error;
+    }
+
     useQuestionAnswers(
       questionAnswers.concat({
         id: uuid(),
@@ -119,7 +136,18 @@ export const DefineQuiz = () => {
 
   return (
     <div className="define main">
+      {
+        <p
+          className="empty-error"
+          style={
+            emptyFieldErr ? { opacity: 0.8, height:"22px" } : { opacity: 0}
+          }
+        >
+          {emptyFieldErr}
+        </p>
+      }
       <h1> Define new quiz</h1>
+
       {!creatingQuiz ? (
         <CreatingQuiz
           questionInput={questionInput}
