@@ -7,7 +7,15 @@ route.get("/", (req, res) => {
   res.json("Server is running");
 });
 
-route.post("/", (req, res) => {
-  res.json(req.body)
+route.post("/", async (req, res) => {
+  const { body } = req;
+  const Quiz = new quizSchema(req.body);
+
+  let titleExist = await quizSchema.findOne({ title: body.title });
+  if (titleExist) return res.json("This title alredy exist");
+
+  Quiz.save(body)
+    .then(data => res.json(data))
+    .catch(err => console.log("Error while saving, ", err.message));
 });
 module.exports = route;

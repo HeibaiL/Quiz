@@ -15,10 +15,17 @@ app.get("/", (req, res) => res.send("<h1>Hello </h1>"));
 
 app.use("/definequiz", defineQuizRoute);
 
-mongoose.connect(
-  process.env.DB_CONNECTION_STRING,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  () => console.log("connected to db")
-);
+const db = mongoose
+  .connect(
+    "mongodb+srv://John:Doe@testcluster-itxrr.mongodb.net/test?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }
+  )
+  .then(() => console.log("connected to db"))
+  .catch(err => console.log("Error connecting to DB", err));
 
-app.listen(4000);
+app.listen(4000, () => console.log("Server up and running"));
+
+module.exports=db;
