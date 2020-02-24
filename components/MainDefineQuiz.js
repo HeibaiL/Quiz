@@ -1,12 +1,10 @@
 import React, { useEffect, useState, useMemo } from "react";
 import uuid from "react-uuid";
 
-import { DefineAnswer } from "./DefineAnswer";
-import { Results } from "./Results";
-import { CreatingQuiz } from "./CreatingQuiz";
-import { json } from "body-parser";
+import { DefineAnswer } from "./DefiningQuizComponents/DefineAnswer";
+import { DefiningScreen } from "./DefiningQuizComponents/DefiningScreen";
 
-export const DefineQuiz = () => {
+export const MainDefineQuiz = () => {
   const [emptyFieldErr, useEmptyFieldErr] = useState("");
   const [title, useTitle] = useState("");
   const [creatingQuiz, useCreatingQuiz] = useState(false);
@@ -144,60 +142,23 @@ export const DefineQuiz = () => {
   return (
     <div className="define main">
       {!completedScreen ? (
-        <div>
-          {" "}
-          {
-            <p
-              className="empty-error"
-              style={
-                emptyFieldErr
-                  ? { opacity: 0.8, height: "22px" }
-                  : { opacity: 0 }
-              }
-            >
-              {emptyFieldErr}
-            </p>
-          }
-          <h1> Define new quiz</h1>
-          {!creatingQuiz ? (
-            <CreatingQuiz
-              questionInput={questionInput}
-              questionAnswers={questionAnswers}
-              renderAnswers={renderAnswers}
-              addAnswer={addAnswer}
-              handleQuestion={handleQuestion}
-              createQuestionAnswer={createQuestionAnswer}
-              createQuiz={createQuiz}
-            />
-          ) : (
-            <div className="render-results">
-              <input
-                className="define-title"
-                placeholder="Enter quiz title"
-                onChange={e => handleTitleInput(e)}
-                value={title}
-              />
-              <div
-                className="end-creating define-button "
-                onClick={() => endCreatingQuiz()}
-              >
-                <i className="far fa-dot-circle"></i> End Creating Quiz
-              </div>
-              {questionAnswers.map((questionAnswer, index) => {
-                return (
-                  <Results
-                    handleAnswerEdit={handleAnswerEdit}
-                    handleQuestionEdit={handleQuestionEdit}
-                    questionAnswer={questionAnswer}
-                    deleteQuestion={deleteQuestion}
-                    index={index}
-                    key={questionAnswer.id}
-                  />
-                );
-              })}
-            </div>
-          )}
-        </div>
+        <DefiningScreen
+          creatingQuiz={creatingQuiz}
+          emptyFieldErr={emptyFieldErr}
+          questionInput={questionInput}
+          questionAnswers={questionAnswers}
+          renderAnswers={renderAnswers}
+          addAnswer={addAnswer}
+          handleQuestion={handleQuestion}
+          createQuestionAnswer={createQuestionAnswer}
+          createQuiz={createQuiz}
+          handleTitleInput={handleTitleInput}
+          title={title}
+          endCreatingQuiz={endCreatingQuiz}
+          handleAnswerEdit={handleAnswerEdit}
+          handleQuestionEdit={handleQuestionEdit}
+          deleteQuestion={deleteQuestion}
+        />
       ) : (
         <div className="completed-defining">
           <span>
