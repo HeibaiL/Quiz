@@ -7,7 +7,7 @@ import { DefiningScreen } from "./DefiningQuizComponents/DefiningScreen";
 export const MainDefineQuiz = () => {
   const [emptyFieldErr, useEmptyFieldErr] = useState("");
   const [title, useTitle] = useState("");
-  const [creatingQuiz, useCreatingQuiz] = useState(false);
+  const [creatingQuiz, useCreatingQuiz] = useState(true);
   const [questionInput, useQuestion] = useState("");
   const [allAnswers, setAllAnswers] = useState([]);
   const [questionAnswers, useQuestionAnswers] = useState([]);
@@ -71,7 +71,7 @@ export const MainDefineQuiz = () => {
     const error = createQuestionAnswer();
     if (error) return showEmptyFieldError(error.message);
 
-    useCreatingQuiz(true);
+    useCreatingQuiz(false);
   }
   //start with 2 answers
   function loadTwoAnswers() {

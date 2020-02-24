@@ -10,14 +10,16 @@ import { QuizList } from "./components/QuizList";
 import { QuizTest } from "./components/QuizTest";
 
 export const App = props => {
-  const {
-    appAnswers: { quizes }
-  } = useSelector(state => ({ ...state }));
-
   const dispatch = useDispatch();
 
+  const [quizes, useQuizes] = useState([]);
   const [chosenQuiz, useChosenQuiz] = useState("");
-  const [activePage, useActivePage] = useState("");
+
+  useEffect(() => {
+    fetch("http://localhost:4000")
+      .then(res => res.json())
+      .then(data => useQuizes(data));
+  }, [chosenQuiz]);
 
   useEffect(() => {
     dispatch(setQuiz(gotQuizes));

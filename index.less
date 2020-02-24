@@ -2,7 +2,8 @@
   margin: 0;
   padding: 0;
 }
-@primary-green: #5cd895;
+
+@animationtime: 0.6s ease;
 .app {
   width: 100vw;
   height: 100vh;
@@ -87,8 +88,9 @@
   z-index: 10;
   padding-top: 15px;
   box-sizing: border-box;
+  font-family: Arial;
   .list {
-    width: 50%;
+    width: 70%;
     margin: 0 auto;
     list-style: none;
     a {
@@ -99,7 +101,21 @@
   }
   li {
     margin: 20px 0;
+    padding: 15px 0;
     cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+    transition: @animationtime;
+    &:hover {
+      background-color: #2f5068;
+      transition: @animationtime;
+      box-shadow: 4px 4px 5px 3px rgb(27, 47, 56);
+      transform: translateY(-5px)
+    }
+    &:hover a {
+      color: rgb(99, 165, 170);
+      transition: 0.3s;
+    }
   }
 }
 .main {
@@ -142,11 +158,11 @@
     cursor: pointer;
     font-size: 30px;
     color: rgb(70, 96, 114);
-    transition: 0.6s ease;
+    transition: @animationtime;
     &:hover {
       background-color: #343240;
       box-shadow: 0 10px 20px rgba(83, 68, 68, 0.924);
-      transition: 0.6s ease;
+      transition: @animationtime;
       transform: translateY(-7px);
     }
   }
@@ -180,23 +196,23 @@
   box-sizing: border-box;
   font-size: 18px;
   overflow-y: auto;
-  .completed-defining{
-    width:20%;
-    height:15%;
+  .completed-defining {
+    width: 20%;
+    height: 15%;
     position: absolute;
-    top:40%;
-    left:50%;
-    margin-left:-8%;
-    font-size:26px;
-    color:rgb(197, 219, 223);
-      span{
-        display: flex;
-        align-items:center;
-        justify-content: space-around;
-      }
-    i{
-        font-size:46px;
-        color:rgb(156, 248, 156);
+    top: 40%;
+    left: 50%;
+    margin-left: -8%;
+    font-size: 26px;
+    color: rgb(197, 219, 223);
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+    i {
+      font-size: 46px;
+      color: rgb(156, 248, 156);
     }
   }
   .empty-error {
@@ -208,8 +224,7 @@
     font-size: 18px;
     width: 300px;
     margin: 1vh auto 0 auto;
-    transition:0.5s;
-
+    transition: 0.5s;
   }
   h1 {
     margin: 3vh 0 5vh 0;

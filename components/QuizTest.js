@@ -3,9 +3,10 @@ import Quiz from "./Quiz";
 
 export const QuizTest = props => {
   const [questionNum, useQuestionNum] = useState(1);
+
   const {
     quiz,
-    quiz: { data, title }
+    quiz: { data, title, id }
   } = props;
 
   //Start with 1st question when quiz changed
@@ -14,7 +15,7 @@ export const QuizTest = props => {
   function showQuiz(num) {
     return data.map((quiz, index) => {
       if (index === num - 1) {
-        return <Quiz quiz={quiz} title={title} key={index} />;
+        return <Quiz quiz={quiz} title={title} key={quiz.id} />;
       }
     });
   }
