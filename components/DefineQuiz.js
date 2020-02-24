@@ -13,24 +13,31 @@ export const DefineQuiz = () => {
   const [questionInput, useQuestion] = useState("");
   const [allAnswers, setAllAnswers] = useState([]);
   const [questionAnswers, useQuestionAnswers] = useState([]);
+  const [completedScreen, useCompletedScreen] = useState(false);
 
   useEffect(() => {
     loadTwoAnswers();
   }, []);
   function showEmptyFieldError(error) {
+    if (emptyFieldErr) return;
     useEmptyFieldErr(error);
     setTimeout(() => useEmptyFieldErr(""), 3000);
-  };
-  
+  }
+
   function endCreatingQuiz() {
+    if (!title) return showEmptyFieldError("Title is required");
+
     fetch("http://localhost:4000/definequiz", {
       headers: { "content-type": "application/json" },
       method: "POST",
-      body: JSON.stringify({ title, data: [...questionAnswers] })
+      body: JSON.stringify({ title, data: questionAnswers })
     })
       .then(res => res.json())
-      .then(data => console.log(data));
+      .then(data => console.log(data))
+      .then(() => useCompletedScreen(true))
+      .catch(err => console.log("Error while saving", err));
   }
+
   function handleTitleInput(e) {
     const { value } = e.target;
     useTitle(value);
@@ -136,54 +143,67 @@ export const DefineQuiz = () => {
 
   return (
     <div className="define main">
-      {
-        <p
-          className="empty-error"
-          style={
-            emptyFieldErr ? { opacity: 0.8, height:"22px" } : { opacity: 0}
+      {!completedScreen ? (
+        <div>
+          {" "}
+          {
+            <p
+              className="empty-error"
+              style={
+                emptyFieldErr
+                  ? { opacity: 0.8, height: "22px" }
+                  : { opacity: 0 }
+              }
+            >
+              {emptyFieldErr}
+            </p>
           }
-        >
-          {emptyFieldErr}
-        </p>
-      }
-      <h1> Define new quiz</h1>
-
-      {!creatingQuiz ? (
-        <CreatingQuiz
-          questionInput={questionInput}
-          questionAnswers={questionAnswers}
-          renderAnswers={renderAnswers}
-          addAnswer={addAnswer}
-          handleQuestion={handleQuestion}
-          createQuestionAnswer={createQuestionAnswer}
-          createQuiz={createQuiz}
-        />
-      ) : (
-        <div className="render-results">
-          <input
-            className="define-title"
-            placeholder="Enter quiz title"
-            onChange={e => handleTitleInput(e)}
-            value={title}
-          />
-          <div
-            className="end-creating define-button "
-            onClick={() => endCreatingQuiz()}
-          >
-            <i className="far fa-dot-circle"></i> End Creating Quiz
-          </div>
-          {questionAnswers.map((questionAnswer, index) => {
-            return (
-              <Results
-                handleAnswerEdit={handleAnswerEdit}
-                handleQuestionEdit={handleQuestionEdit}
-                questionAnswer={questionAnswer}
-                deleteQuestion={deleteQuestion}
-                index={index}
-                key={questionAnswer.id}
+          <h1> Define new quiz</h1>
+          {!creatingQuiz ? (
+            <CreatingQuiz
+              questionInput={questionInput}
+              questionAnswers={questionAnswers}
+              renderAnswers={renderAnswers}
+              addAnswer={addAnswer}
+              handleQuestion={handleQuestion}
+              createQuestionAnswer={createQuestionAnswer}
+              createQuiz={createQuiz}
+            />
+          ) : (
+            <div className="render-results">
+              <input
+                className="define-title"
+                placeholder="Enter quiz title"
+                onChange={e => handleTitleInput(e)}
+                value={title}
               />
-            );
-          })}
+              <div
+                className="end-creating define-button "
+                onClick={() => endCreatingQuiz()}
+              >
+                <i className="far fa-dot-circle"></i> End Creating Quiz
+              </div>
+              {questionAnswers.map((questionAnswer, index) => {
+                return (
+                  <Results
+                    handleAnswerEdit={handleAnswerEdit}
+                    handleQuestionEdit={handleQuestionEdit}
+                    questionAnswer={questionAnswer}
+                    deleteQuestion={deleteQuestion}
+                    index={index}
+                    key={questionAnswer.id}
+                  />
+                );
+              })}
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="completed-defining">
+          <span>
+            <i className="fas fa-check-circle"></i> Quiz was successfully
+            created
+          </span>
         </div>
       )}
     </div>

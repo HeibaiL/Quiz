@@ -13,9 +13,11 @@ route.post("/", async (req, res) => {
 
   let titleExist = await quizSchema.findOne({ title: body.title });
   if (titleExist) return res.json("This title alredy exist");
-
-  Quiz.save(body)
-    .then(data => res.json(data))
-    .catch(err => console.log("Error while saving, ", err.message));
+  try {
+    const savedQuiz = await Quiz.save(body);
+    res.json(savedQuiz);
+  } catch (err) {
+    console.log("Got error while saving on server", err);
+  }
 });
 module.exports = route;

@@ -17,7 +17,7 @@ app.use("/definequiz", defineQuizRoute);
 
 const db = mongoose
   .connect(
-    "mongodb+srv://John:Doe@testcluster-itxrr.mongodb.net/test?retryWrites=true&w=majority",
+    process.env.DB_CONNECTION_STRING,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true
