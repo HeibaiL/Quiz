@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { gotQuizes } from "./quizes";
 import { setQuiz } from "./store/actions";
 import { Header } from "./components/Header";
-import { DefineQuiz } from "./components/DefineQuiz";
+import { MainDefineQuiz } from "./components/MainDefineQuiz";
 import { QuizList } from "./components/QuizList";
 import { QuizTest } from "./components/QuizTest";
 
@@ -39,7 +39,7 @@ export const App = props => {
             exact
             component={() => <QuizTest quiz={chosenQuiz} />}
           />
-          <Route path="/definequiz" component={() => <DefineQuiz />} />
+          <Route path="/definequiz" component={() => <MainDefineQuiz />} />
         </Switch>
       </div>
     </Router>
