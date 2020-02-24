@@ -34,7 +34,7 @@ export function DefiningScreen(props) {
         </p>
       }
       <h1> Define new quiz</h1>
-      {!creatingQuiz ? (
+      {creatingQuiz ? (
         <CreatingQuiz
           questionInput={questionInput}
           questionAnswers={questionAnswers}

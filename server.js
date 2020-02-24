@@ -6,12 +6,13 @@ const cors = require("cors");
 require("dotenv").config();
 
 const defineQuizRoute = require("./routes/defineQuizRoute");
+const homeRoute = require("./routes/homeRoute")
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get("/", (req, res) => res.send("<h1>Hello </h1>"));
+app.get("/", homeRoute);
 
 app.use("/definequiz", defineQuizRoute);
 

@@ -5,24 +5,18 @@ import { saveAnswer } from "../store/actions";
 function Quiz(props) {
   const {
     quiz,
-    quiz: { answers },
-    title,
-    saveAnswer
+    quiz: { question, answers },
+    title
   } = props;
-  const [stateAnswer, useAnswer] = useState("");
-  const dispatch = useDispatch();
-  const { appAnswers } = useSelector(state => ({ ...state }));
-  const chosenStyle = { background: "#343240" };
-
   return (
     <div className="quiz">
       <h1 style={{ color: "white" }} className="quiz-title">
         {title}
       </h1>
-      <h1>{quiz.question}</h1>
+      <h1>{question}</h1>
       <ul className="answers">
-        {answers.map((answer, index) => (
-          <li key={index}>{answer}</li>
+        {answers.map(answer => (
+          <li key={answer.id}>{answer.text}</li>
         ))}
       </ul>
     </div>
