@@ -110,7 +110,7 @@
       background-color: #2f5068;
       transition: @animationtime;
       box-shadow: 4px 4px 5px 3px rgb(27, 47, 56);
-      transform: translateY(-5px)
+      transform: translateY(-5px);
     }
     &:hover a {
       color: rgb(99, 165, 170);
@@ -132,8 +132,28 @@
   background-size: cover;
   background-position: center;
   box-sizing: border-box;
+  span {
+    position: absolute;
+    font-size: 22px;
+    right: 5vw;
+  }
   .quiz {
     height: 80%;
+    .submit-answers {
+      cursor: pointer;
+      color:white;
+      font-size: 26px;
+      position: absolute;
+      right:5vh;
+      bottom:10vh;
+      background-color:#6f7f8a;
+      padding:10px 15px;
+      border-radius: 10px;
+      &:hover{
+        background-color: rgb(240, 195, 137);
+        transition: 0.3s;
+      }
+    }
   }
   h1 {
     margin-top: 50px;
