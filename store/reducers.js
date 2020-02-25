@@ -1,9 +1,9 @@
 import { SAVE_ANSWER, DELETE_ANSWER, SET_QUIZ } from "./actions";
 import { combineReducers } from "redux";
 
-let defaultState = { quizes: [], answers: [] };
+let defaultState = { quizes: []    };
 
-const answerReducer = (state = defaultState, action) => {
+const quizReducer = (state = defaultState, action) => {
   switch (action.type) {
     case SAVE_ANSWER:
       return {
@@ -16,12 +16,11 @@ const answerReducer = (state = defaultState, action) => {
         answers: state.answers.pop()
       };
     case SET_QUIZ:
-      return { ...state, 
-        quizes: action.payload };
+      return { ...state, quizes: action.payload };
     default:
       return state;
   }
 };
 export const rootReducer = combineReducers({
-  appAnswers: answerReducer
+  quizData: quizReducer
 });

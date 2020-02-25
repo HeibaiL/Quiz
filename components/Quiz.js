@@ -4,10 +4,13 @@ import { saveAnswer } from "../store/actions";
 
 function Quiz(props) {
   const {
+    lastQuestion,
     quiz,
-    quiz: { question, answers },
+    chooseAnswer,
+    quiz: { question, answers, chosenAnswer },
     title
   } = props;
+
   return (
     <div className="quiz">
       <h1 style={{ color: "white" }} className="quiz-title">
@@ -16,9 +19,20 @@ function Quiz(props) {
       <h1>{question}</h1>
       <ul className="answers">
         {answers.map(answer => (
-          <li key={answer.id}>{answer.text}</li>
+          <li
+            key={answer.id}
+            style={
+              answer.text === chosenAnswer ? { backgroundColor: "black" } : null
+            }
+            onClick={e => chooseAnswer(answer.text, quiz.id)}
+          >
+            {answer.text}
+          </li>
         ))}
       </ul>
+      {lastQuestion ? (
+        <button className="submit-answers">Sumbit Answers</button>
+      ) : null}
     </div>
   );
 }
