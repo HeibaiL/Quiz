@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { saveAnswer } from "../store/actions";
+
+//TODO: STYLING FOR CLICKED ANSWER
 
 function Quiz(props) {
   const {
@@ -22,7 +22,9 @@ function Quiz(props) {
           <li
             key={answer.id}
             style={
-              answer.text === chosenAnswer ? { backgroundColor: "black" } : null
+              answer.text === chosenAnswer
+                ? { backgroundColor: "rgb(70, 96, 114)", color: "white" }
+                : null
             }
             onClick={e => chooseAnswer(answer.text, quiz.id)}
           >
