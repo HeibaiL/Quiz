@@ -2,9 +2,6 @@ import Joi from "@hapi/joi";
 
 let schema = Joi.object({
   email: Joi.string()
-    .email({
-      tlds: { allow: ["com", "net"] }
-    })
     .min(3)
     .required(),
   password: Joi.string()

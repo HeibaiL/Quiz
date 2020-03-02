@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import schema from "../models/joiSignUpModel";
 
-export const SignUp = () => {
+export const SignUp = (props) => {
   const [signUpUser, useSignUpUser] = useState({
     login: "",
     password: "",
@@ -97,7 +96,7 @@ export const SignUp = () => {
             </button>
             <div className="sign-up">
               <a>Forgot password?</a>
-              <Link to="/login">Log in</Link>
+              <a onClick={() => props.changeShowSignUp()}>Log in</a>
             </div>
           </div>
         </div>

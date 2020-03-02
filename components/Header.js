@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const Header = props => {
+export const Header = () => {
   return (
     <div className="header">
       <nav>

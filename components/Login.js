@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { SignUp } from "./SignUp";
 import schema from "../models/joiLoginModel";
 
-export const LoginComponent = () => {
+export const Login = props => {
   const [loginUser, useLoginUser] = useState({ email: "", password: "" });
+  const [showSignUp, useShowSignUp] = useState(false);
   const [isError, useError] = useState("");
 
   const handleChange = e => {
     const { value, name } = e.target;
     useLoginUser({ ...loginUser, [name]: value });
   };
-
+  function changeShowSignUp() {
+    useShowSignUp(!showSignUp);
+  }
   function showError(error) {
     if (isError) return;
     useError(error);
@@ -38,7 +40,7 @@ export const LoginComponent = () => {
             return showError("E-mail or password isn't valid");
           }
         })
-        .then(data => console.log(data))
+        .then(data => props.useLoggedUser(data)) //FIND OUT WHAT I WAS GOING TO DO 
         .catch(err => {
           console.log("Error signing up:", err);
         });
@@ -46,44 +48,49 @@ export const LoginComponent = () => {
       console.log("we got err", error);
     }
   }
-
   return (
-    <div className="login main">
-      <div className="loginin window">
-        {isError ? <div className="error">{isError}</div> : null}
-        <div className="login-logo">
-          <i className="fas fa-ice-cream logo-icon"></i>
-          Quizzeee
-        </div>
-        <div className="login-main">
-          <label htmlFor="username">
-            <i className="fas fa-user"></i>
-          </label>
-          <input
-            id="email"
-            name="email"
-            onChange={handleChange}
-            placeholder="E-mail"
-          />
-          <label htmlFor="password">
-            <i className="fas fa-key"></i>
-          </label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            onChange={handleChange}
-            placeholder="Password"
-          />
-          <button className="login-in" onClick={() => postUser()}>
-            Log In
-          </button>
-          <div className="sign-up">
-            <a>Forgot password?</a>
-            <Link to="/signup">Sign up</Link>
+    <div>
+      {showSignUp ? (
+        <SignUp changeShowSignUp={changeShowSignUp} />
+      ) : (
+        <div className="login main">
+          <div className="loginin window">
+            {isError ? <div className="error">{isError}</div> : null}
+            <div className="login-logo">
+              <i className="fas fa-ice-cream logo-icon"></i>
+              Quizzeee
+            </div>
+            <div className="login-main">
+              <label htmlFor="username">
+                <i className="fas fa-user"></i>
+              </label>
+              <input
+                id="email"
+                name="email"
+                onChange={handleChange}
+                placeholder="E-mail"
+              />
+              <label htmlFor="password">
+                <i className="fas fa-key"></i>
+              </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                onChange={handleChange}
+                placeholder="Password"
+              />
+              <button className="login-in" onClick={() => postUser()}>
+                Log In
+              </button>
+              <div className="sign-up">
+                <a>Forgot password?</a>
+                <a onClick={() => changeShowSignUp()}>Sign up</a>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
