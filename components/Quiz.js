@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-
-//TODO: STYLING FOR CLICKED ANSWER
+import React from "react";
 
 function Quiz(props) {
   const {

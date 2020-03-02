@@ -5,7 +5,7 @@ export const QuizTest = props => {
   const [questionNum, useQuestionNum] = useState(1);
   const [userAnswers, useUserAnswers] = useState({});
   const [lastQuestion, useLastQuestion] = useState(false);
-
+// TODO: SUBMIT ANSWERS
   const submitAnswers = () => {};
 
   const chooseAnswer = (answer, id) => {
@@ -46,15 +46,6 @@ export const QuizTest = props => {
           );
         }
       });
-  }
-
-  // Max and min quizNum = quiz numbers
-  if (data) {
-    if (questionNum > data.length) {
-      useQuestionNum(data.length);
-    } else if (questionNum < 1) {
-      useQuestionNum(1);
-    }
   }
   return (
     <div className="quizTest main">

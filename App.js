@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import { Login } from "./components/Login";
 import { setQuiz } from "./store/actions";
 import { Header } from "./components/Header";
 import { MainDefineQuiz } from "./components/MainDefineQuiz";
@@ -10,10 +11,14 @@ import { QuizTest } from "./components/QuizTest";
 
 export const App = () => {
   const dispatch = useDispatch();
-
+  const [loggedUser, useLoggedUser] = useState(null);
   const [quizes, useQuizes] = useState([]);
   const [chosenQuiz, useChosenQuiz] = useState("");
 
+  function loginUser(data) {
+    return useLoggedUser(data);
+  }
+  console.log(loggedUser)
   useEffect(() => {
     fetch("http://localhost:4000")
       .then(res => res.json())
@@ -34,12 +39,12 @@ export const App = () => {
         <Header />
         <QuizList chooseQuiz={chooseQuiz} quizes={quizes} />
         <Switch>
+          <Route path="/login" render={() => <Login loginUser={loginUser} />} />
+          <Route path="/" exact render={() => <QuizTest quiz={chosenQuiz} />} />
           <Route
-            path="/"
-            exact
-            component={() => <QuizTest quiz={chosenQuiz} />}
+            path="/definequiz"
+            render={() => <MainDefineQuiz loggedUser={loggedUser} />}
           />
-          <Route path="/definequiz" component={MainDefineQuiz} />
         </Switch>
       </div>
     </Router>
