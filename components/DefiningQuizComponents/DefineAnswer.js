@@ -8,7 +8,6 @@ export function DefineAnswer({ handleAnswerInput, answer: { id } }) {
         name="question"
         onChange={e => handleAnswerInput(e)}
       ></input>
-      Define answer
     </div>
   );
 }

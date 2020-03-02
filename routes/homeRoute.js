@@ -1,5 +1,5 @@
 const route = require("express").Router();
-const quizSchema = require("../schemas/quizSchema");
+const quizSchema = require("../models/quizSchema");
 
 route.get("/", async (req, res) => {
     const quizes = await quizSchema.find();

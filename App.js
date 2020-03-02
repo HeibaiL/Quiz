@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+
+import {LoginComponent} from "./components/Login"
 import { setQuiz } from "./store/actions";
 import { Header } from "./components/Header";
 import { MainDefineQuiz } from "./components/MainDefineQuiz";
 import { QuizList } from "./components/QuizList";
 import { QuizTest } from "./components/QuizTest";
+import {SignUp} from "./components/SignUp";
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -34,12 +37,14 @@ export const App = () => {
         <Header />
         <QuizList chooseQuiz={chooseQuiz} quizes={quizes} />
         <Switch>
+          <Route path="/login" component={LoginComponent} />
           <Route
             path="/"
             exact
             component={() => <QuizTest quiz={chosenQuiz} />}
           />
           <Route path="/definequiz" component={MainDefineQuiz} />
+          <Route path="/signup" component={SignUp} />
         </Switch>
       </div>
     </Router>

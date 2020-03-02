@@ -7,6 +7,8 @@ require("dotenv").config();
 
 const defineQuizRoute = require("./routes/defineQuizRoute");
 const homeRoute = require("./routes/homeRoute")
+const signUpRoute = require("./routes/signUpRoute")
+const loginRoute = require("./routes/loginRoute")
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -15,6 +17,8 @@ app.use(cors());
 app.get("/", homeRoute);
 
 app.use("/definequiz", defineQuizRoute);
+app.use("/signup", signUpRoute)
+app.use("/login", loginRoute)
 
 const db = mongoose
   .connect(

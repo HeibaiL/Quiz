@@ -22,7 +22,7 @@ export function DefiningScreen(props) {
     deleteQuestion
   } = props;
   return (
-    <div>
+    <div style={{height:"80%"}}>
       {
         <p
           className="empty-error"
