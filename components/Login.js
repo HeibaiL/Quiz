@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { SignUp } from "./SignUp";
 import schema from "../models/joiLoginModel";
 
@@ -26,27 +26,26 @@ export const Login = props => {
     const { error } = schema.validate(user);
     if (error) return showError(error.message);
 
-    try {
-      fetch("http://localhost:4000/login", {
-        headers: { "content-type": "application/json" },
-        method: "POST",
-        body: JSON.stringify({ ...user }),
-        mode: "cors"
+    fetch("http://localhost:4000/login", {
+      headers: { "content-type": "application/json" },
+      method: "POST",
+      body: JSON.stringify({ ...user }),
+      mode: "cors"
+    })
+      .then(res => {
+        if (res.status === 200) {
+          return res.json();
+        } else if (res.status === 401) {
+          return showError("E-mail or password isn't valid");
+        }
       })
-        .then(res => {
-          if (res.status === 200) {
-            return res.json();
-          } else if (res.status === 401) {
-            return showError("E-mail or password isn't valid");
-          }
-        })
-        .then(data => props.useLoggedUser(data)) //FIND OUT WHAT I WAS GOING TO DO 
-        .catch(err => {
-          console.log("Error signing up:", err);
-        });
-    } catch (error) {
-      console.log("we got err", error);
-    }
+      .then(data => {
+        localStorage.setItem("auth-token", data);
+        props.useLoggedUser(data);
+      })
+      .catch(err => {
+        console.log("Error signing up:", err);
+      });
   }
   return (
     <div>

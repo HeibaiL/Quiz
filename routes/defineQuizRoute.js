@@ -4,7 +4,7 @@ const quizSchema = require("../models/quizSchema");
 
 route.get("/", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
-  res.json("Server is running");
+  res.json("Private route access");
 });
 
 route.post("/", async (req, res) => {
@@ -16,6 +16,7 @@ route.post("/", async (req, res) => {
   try {
     const savedQuiz = await Quiz.save(body);
     res.json(savedQuiz);
+    
   } catch (err) {
     console.log("Got error while saving on server", err);
   }

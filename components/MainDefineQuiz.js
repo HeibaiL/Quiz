@@ -3,7 +3,6 @@ import uuid from "react-uuid";
 
 import { DefineAnswer } from "./DefiningQuizComponents/DefineAnswer";
 import { DefiningScreen } from "./DefiningQuizComponents/DefiningScreen";
-import { Login } from "./Login";
 
 export const MainDefineQuiz = props => {
   const [emptyFieldErr, useEmptyFieldErr] = useState("");
@@ -17,6 +16,7 @@ export const MainDefineQuiz = props => {
   useEffect(() => {
     loadTwoAnswers();
   }, []);
+
   function showEmptyFieldError(error) {
     if (emptyFieldErr) return;
     useEmptyFieldErr(error);
@@ -27,12 +27,12 @@ export const MainDefineQuiz = props => {
     if (!title) return showEmptyFieldError("Title is required");
 
     fetch("http://localhost:4000/definequiz", {
-      headers: { "content-type": "application/json" },
+      headers: { "content-type": "application/json", "auth-token":props.loggedUser },
       method: "POST",
       body: JSON.stringify({ title, data: questionAnswers })
     })
       .then(res => res.json())
-      .then(() => useCompletedScreen(true))
+      .then((data) => useCompletedScreen(true))
       .catch(err => console.log("Error while saving", err));
   }
 
@@ -138,39 +138,34 @@ export const MainDefineQuiz = props => {
       }),
     [allAnswers]
   );
-
-  if (props.loggedUser) {
-    return (
-      <div className="define main">
-        {!completedScreen ? (
-          <DefiningScreen
-            creatingQuiz={creatingQuiz}
-            emptyFieldErr={emptyFieldErr}
-            questionInput={questionInput}
-            questionAnswers={questionAnswers}
-            renderAnswers={renderAnswers}
-            addAnswer={addAnswer}
-            handleQuestion={handleQuestion}
-            createQuestionAnswer={createQuestionAnswer}
-            createQuiz={createQuiz}
-            handleTitleInput={handleTitleInput}
-            title={title}
-            endCreatingQuiz={endCreatingQuiz}
-            handleAnswerEdit={handleAnswerEdit}
-            handleQuestionEdit={handleQuestionEdit}
-            deleteQuestion={deleteQuestion}
-          />
-        ) : (
-          <div className="completed defining">
-            <span>
-              <i className="fas fa-check-circle"></i> Quiz was successfully
-              created
-            </span>
-          </div>
-        )}
-      </div>
-    );
-  } else {
-    return <Login />;
-  }
+  return (
+    <div className="define main">
+      {!completedScreen ? (
+        <DefiningScreen
+          creatingQuiz={creatingQuiz}
+          emptyFieldErr={emptyFieldErr}
+          questionInput={questionInput}
+          questionAnswers={questionAnswers}
+          renderAnswers={renderAnswers}
+          addAnswer={addAnswer}
+          handleQuestion={handleQuestion}
+          createQuestionAnswer={createQuestionAnswer}
+          createQuiz={createQuiz}
+          handleTitleInput={handleTitleInput}
+          title={title}
+          endCreatingQuiz={endCreatingQuiz}
+          handleAnswerEdit={handleAnswerEdit}
+          handleQuestionEdit={handleQuestionEdit}
+          deleteQuestion={deleteQuestion}
+        />
+      ) : (
+        <div className="completed defining">
+          <span>
+            <i className="fas fa-check-circle"></i> Quiz was successfully
+            created
+          </span>
+        </div>
+      )}
+    </div>
+  );
 };
