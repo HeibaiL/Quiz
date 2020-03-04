@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const Header = () => {
+export const Header = props => {
+  const { loggedUser,logOut } = props;
+
   return (
     <div className="header">
       <nav>
@@ -18,9 +20,15 @@ export const Header = () => {
           <li>
             <Link to="/definequiz"> Define quiz</Link>
           </li>
-          <li>
-            <Link to="/login">Log in</Link>
-          </li>
+          {loggedUser ? (
+            <li onClick={()=>logOut()}>
+              <a>Log Out</a>
+            </li>
+          ) : (
+            <li>
+              <Link to="/login">Log in</Link>
+            </li>
+          )}
         </ul>
       </nav>
     </div>

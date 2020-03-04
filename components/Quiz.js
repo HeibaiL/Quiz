@@ -5,7 +5,7 @@ function Quiz(props) {
     lastQuestion,
     quiz,
     chooseAnswer,
-    quiz: { question, answers, chosenAnswer },
+    quiz: { question, answers,chosenAnswer },
     title
   } = props;
 
