@@ -22,14 +22,14 @@ export const Login = props => {
   }
 
   function postUser() {
-    const user = { ...loginUser };
-    const { error } = schema.validate(user);
+
+    const { error } = schema.validate({ ...loginUser });
     if (error) return showError(error.message);
 
     fetch("http://localhost:4000/login", {
       headers: { "content-type": "application/json" },
       method: "POST",
-      body: JSON.stringify({ ...user }),
+      body: JSON.stringify({ ...loginUser }),
       mode: "cors"
     })
       .then(res => {
@@ -44,7 +44,7 @@ export const Login = props => {
         props.useLoggedUser(data);
       })
       .catch(err => {
-        console.log("Error signing up:", err);
+        console.log("Error logining in", err);
       });
   }
   return (
