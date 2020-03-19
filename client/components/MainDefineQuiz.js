@@ -7,6 +7,7 @@ import { DefiningScreen } from "./DefiningQuizComponents/DefiningScreen";
 import { saveQuiz, addData } from "../store/actions";
 
 export const MainDefineQuiz = props => {
+  const [questionNumber, useQuestionNumber] = useState(1);
   const [emptyFieldErr, useEmptyFieldErr] = useState("");
   const [title, useTitle] = useState("");
   const [creatingQuiz, useCreatingQuiz] = useState(true);
@@ -61,8 +62,7 @@ export const MainDefineQuiz = props => {
   function handleQuestion(e) {
     const { value } = e.target;
     useQuestion(value);
-  };
-
+  }
 
   function handleQuestionEdit(e) {
     const { id, value } = e.target;
@@ -102,7 +102,7 @@ export const MainDefineQuiz = props => {
 
   function defineCorrectAnswer(id) {
     useCorrectAnswers(correctAnswers.concat(id));
-  };
+  }
 
   function createQuestionAnswer() {
     try {
@@ -115,7 +115,17 @@ export const MainDefineQuiz = props => {
       showEmptyFieldError(error.message);
       return error;
     }
-    dispatch(addData(questionInput, 0))
+
+    useQuestionNumber(questionNumber + 1);
+
+    const data = {
+      question: questionInput,
+      answers: allAnswers,
+      correctAnswers,
+      date: Date.now()
+    };
+
+    dispatch(addData(data, questionNumber));
     useQuestionAnswers(
       questionAnswers.concat({
         id: uuid(),

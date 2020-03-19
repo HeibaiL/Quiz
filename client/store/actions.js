@@ -28,5 +28,5 @@ export function addAnswer(answer) {
 }
 
 export function addData(question, id) {
-  return { type: ADD_QUESTION, payload: question, id};
+  return { type: ADD_DATA, payload: question, id};
 }
