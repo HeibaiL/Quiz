@@ -8,6 +8,18 @@ const quizSchema = mongoose.Schema({
   data: {
     required: true,
     type: Array
+  },
+  user: {
+    type: String,
+    required: true
+  },
+  date: {
+    type: Date,
+    default: Date.now()
+  },
+  usersAnswered: {
+    type: Array,
+    default: []
   }
 });
 

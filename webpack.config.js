@@ -24,10 +24,23 @@ module.exports = {
         test: /\.less$/,
         use: ["style-loader", "css-loader", "less-loader"]
       },
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          "file-loader",
+          {
+            loader: "image-webpack-loader",
+            options: {
+              bypassOnDebug: true,
+              disable: true
+            }
+          }
+        ]
+      }
     ]
   },
   devServer: {
-    historyApiFallback: true,
+    historyApiFallback: true
   },
   plugins: [new HtmlWebpackPlugin({ template: "./index.html" })]
 };

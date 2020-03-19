@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import schema from "../models/joiSignUpModel";
+import schema from "../joiModels/joiSignUpModel";
 
 export const SignUp = (props) => {
   const [signUpUser, useSignUpUser] = useState({

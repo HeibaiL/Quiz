@@ -1,10 +1,13 @@
 import React, { useEffect, useState, useMemo } from "react";
 import uuid from "react-uuid";
+import { useDispatch } from "react-redux";
 
 import { DefineAnswer } from "./DefiningQuizComponents/DefineAnswer";
 import { DefiningScreen } from "./DefiningQuizComponents/DefiningScreen";
+import { saveQuiz, addData } from "../store/actions";
 
 export const MainDefineQuiz = props => {
+  // const [questionNumber, useQuestionNumber] = useState(1);
   const [emptyFieldErr, useEmptyFieldErr] = useState("");
   const [title, useTitle] = useState("");
   const [creatingQuiz, useCreatingQuiz] = useState(true);
@@ -12,6 +15,9 @@ export const MainDefineQuiz = props => {
   const [allAnswers, setAllAnswers] = useState([]);
   const [questionAnswers, useQuestionAnswers] = useState([]);
   const [completedScreen, useCompletedScreen] = useState(false);
+  const [correctAnswers, useCorrectAnswers] = useState([]);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     loadTwoAnswers();
@@ -25,14 +31,27 @@ export const MainDefineQuiz = props => {
 
   function endCreatingQuiz() {
     if (!title) return showEmptyFieldError("Title is required");
+    if (questionAnswers.length < 1)
+      return showEmptyFieldError("Questions are required");
 
     fetch("http://localhost:4000/definequiz", {
-      headers: { "content-type": "application/json", "auth-token":props.loggedUser },
+      headers: {
+        "content-type": "application/json",
+        "auth-token": props.loggedUser
+      },
       method: "POST",
-      body: JSON.stringify({ title, data: questionAnswers })
+      body: JSON.stringify({
+        title,
+        data: questionAnswers,
+        createdAt: Date.now(),
+        createdBy: props.loggedUser
+      })
     })
       .then(res => res.json())
-      .then((data) => useCompletedScreen(true))
+      .then(data => {
+        dispatch(saveQuiz(data));
+        useCompletedScreen(true);
+      })
       .catch(err => console.log("Error while saving", err));
   }
 
@@ -44,6 +63,7 @@ export const MainDefineQuiz = props => {
     const { value } = e.target;
     useQuestion(value);
   }
+
   function handleQuestionEdit(e) {
     const { id, value } = e.target;
     const newArr = questionAnswers.map(quiz => {
@@ -80,6 +100,10 @@ export const MainDefineQuiz = props => {
     );
   }
 
+  function defineCorrectAnswer(id) {
+    useCorrectAnswers(correctAnswers.concat(id));
+  }
+
   function createQuestionAnswer() {
     try {
       if (!questionInput.trim())
@@ -92,11 +116,22 @@ export const MainDefineQuiz = props => {
       return error;
     }
 
+    // useQuestionNumber(questionNumber + 1);
+
+    // const data = {
+    //   question: questionInput,
+    //   answers: allAnswers,
+    //   correctAnswers,
+    //   date: Date.now()
+    // };
+
+    // dispatch(addData(data, questionNumber));
     useQuestionAnswers(
       questionAnswers.concat({
         id: uuid(),
         question: questionInput,
-        answers: allAnswers
+        answers: allAnswers,
+        correctAnswers
       })
     );
     useQuestion("");
@@ -130,6 +165,7 @@ export const MainDefineQuiz = props => {
       allAnswers.map(answer => {
         return (
           <DefineAnswer
+            defineCorrectAnswer={defineCorrectAnswer}
             handleAnswerInput={handleAnswerInput}
             answer={answer}
             key={answer.id}
