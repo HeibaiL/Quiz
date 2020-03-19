@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SignUp } from "./SignUp";
-import schema from "../models/joiLoginModel";
+import schema from "../joiModels/joiLoginModel";
 
 export const Login = props => {
   const [loginUser, useLoginUser] = useState({ email: "", password: "" });
@@ -22,7 +22,6 @@ export const Login = props => {
   }
 
   function postUser() {
-
     const { error } = schema.validate({ ...loginUser });
     if (error) return showError(error.message);
 
@@ -39,9 +38,10 @@ export const Login = props => {
           return showError("E-mail or password isn't valid");
         }
       })
-      .then(data => {
-        localStorage.setItem("auth-token", data);
-        props.useLoggedUser(data);
+      .then(({ token, email }) => {
+        props.useLoggedUser(token);
+        localStorage.setItem("auth-token", token);
+        localStorage.setItem("currentUser", email);
       })
       .catch(err => {
         console.log("Error logining in", err);

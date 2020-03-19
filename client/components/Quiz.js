@@ -5,8 +5,9 @@ function Quiz(props) {
     lastQuestion,
     quiz,
     chooseAnswer,
-    quiz: { question, answers,chosenAnswer },
-    title
+    quiz: { question, answers, chosenAnswer },
+    title,
+    submitUserAnswers
   } = props;
 
   return (
@@ -31,7 +32,9 @@ function Quiz(props) {
         ))}
       </ul>
       {lastQuestion ? (
-        <button className="submit-answers">Sumbit Answers</button>
+        <button className="submit-answers" onClick={() => submitUserAnswers()}>
+          Sumbit Answers
+        </button>
       ) : null}
     </div>
   );
